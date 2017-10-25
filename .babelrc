@@ -1,6 +1,8 @@
 {
   "presets": [
-    "env",
+    ["env", {
+      "useBuiltIns": true
+    }],
     "airbnb",
     "react",
     "stage-2"

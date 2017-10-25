@@ -51,11 +51,11 @@ module.exports = env => {
         },
         {
           test: require.resolve("react"),
-          loader: "expose-loader?React"
+          loaders: ["babel-loader", "expose-loader?React"]
         },
         {
           test: require.resolve("jquery"),
-          loader: "expose-loader?$"
+          loaders: ["babel-loader", "expose-loader?$"]
         }
       ]
     },
