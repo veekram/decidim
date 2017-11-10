@@ -91,16 +91,30 @@ task :check_locale_completeness do
   system({ "ENFORCED_LOCALES" => "en,ca,es" }, "rspec spec/i18n_spec.rb")
 end
 
-desc "Generates a development app."
+desc "Generates a development app and starts a server."
 task :development_app do
-  Dir.chdir(__dir__) do
-    sh "rm -fR development_app", verbose: false
+  Rake::Task["development_app:generate"].execute if !File.directory?("development_app")
+  Rake::Task["development_app:server"].execute
+end
+
+namespace :development_app do
+  desc "Generates a development app."
+  task :generate do
+    Dir.chdir(__dir__) do
+      sh "rm -fR development_app", verbose: false
+    end
+
+    Bundler.with_clean_env do
+      Decidim::Generators::AppGenerator.start(
+        ["development_app", "--path", "..", "--recreate_db", "--seed_db", "--demo"]
+      )
+    end
   end
 
-  Bundler.with_clean_env do
-    Decidim::Generators::AppGenerator.start(
-      ["development_app", "--path", "..", "--recreate_db", "--seed_db", "--demo"]
-    )
+  task :server do
+    Dir.chdir("development_app") do
+      sh "bundle exec rails s"
+    end
   end
 end
 
