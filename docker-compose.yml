@@ -2,10 +2,14 @@ version: '3'
 services:
   decidim:
     build: '.'
+    entrypoint: /bin/sh -c
     command: bundle exec rake development_app
     working_dir: /code
     volumes:
       - .:/code
+      - bundle:/usr/local/bundle
+      - tmp:/code/development_app/tmp
+      - assets:/code/development_app/public/assets
     environment:
       - DATABASE_HOST=pg
       - DATABASE_USERNAME=postgres
@@ -23,5 +27,8 @@ services:
     volumes:
       - redis-data:/data
 volumes:
+  bundle: {}
+  tmp: {}
+  assets: {}
   pg-data: {}
   redis-data: {}

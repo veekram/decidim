@@ -64,3 +64,5 @@ RUN cd /tmp && npm i
 
 WORKDIR $APP_HOME
 COPY . ./
+
+ENTRYPOINT bundle exec decidim
