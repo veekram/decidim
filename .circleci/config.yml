@@ -10,7 +10,7 @@ defaults: &defaults
     - image: postgres
       environment:
         POSTGRES_USER: postgres
-  working_directory: /app
+  working_directory: /decidim
 
 dependency_cache: &dependency_cache
   keys:
@@ -53,14 +53,14 @@ jobs:
           paths:
             - spec/decidim_dummy_app/public/assets
       - persist_to_workspace:
-          root: /app
+          root: /decidim
           paths:
             - "*"
   main:
     <<: *defaults
     steps:
       - attach_workspace:
-          at: /app
+          at: /decidim
       - checkout
       - restore_cache:
           <<: *dependency_cache
@@ -83,7 +83,7 @@ jobs:
     <<: *defaults
     steps:
       - attach_workspace:
-          at: /app
+          at: /decidim
       - restore_cache:
           <<: *dependency_cache
       - run: export CODECOV_FLAG=core
@@ -98,12 +98,12 @@ jobs:
           name: Run core RSpec
           command: cd decidim-core && rake
       - store_artifacts:
-          path: /app/spec/decidim_dummy_app/tmp/capybara
+          path: /decidim/spec/decidim_dummy_app/tmp/capybara
   assemblies:
     <<: *defaults
     steps:
       - attach_workspace:
-          at: /app
+          at: /decidim
       - restore_cache:
           <<: *dependency_cache
       - run: export CODECOV_FLAG=assemblies
@@ -118,12 +118,12 @@ jobs:
           name: Run assemblies RSpec
           command: cd decidim-assemblies && rake
       - store_artifacts:
-          path: /app/spec/decidim_dummy_app/tmp/capybara
+          path: /decidim/spec/decidim_dummy_app/tmp/capybara
   api:
     <<: *defaults
     steps:
       - attach_workspace:
-          at: /app
+          at: /decidim
       - restore_cache:
           <<: *dependency_cache
       - run: export CODECOV_FLAG=api
@@ -138,12 +138,12 @@ jobs:
           name: Run api RSpec
           command: cd decidim-api && rake
       - store_artifacts:
-          path: /app/spec/decidim_dummy_app/tmp/capybara
+          path: /decidim/spec/decidim_dummy_app/tmp/capybara
   processes:
     <<: *defaults
     steps:
       - attach_workspace:
-          at: /app
+          at: /decidim
       - restore_cache:
           <<: *dependency_cache
       - run: export CODECOV_FLAG=processes
@@ -158,12 +158,12 @@ jobs:
           name: Run participatory_processes RSpec
           command: cd decidim-participatory_processes && rake
       - store_artifacts:
-          path: /app/spec/decidim_dummy_app/tmp/capybara
+          path: /decidim/spec/decidim_dummy_app/tmp/capybara
   admin:
     <<: *defaults
     steps:
       - attach_workspace:
-          at: /app
+          at: /decidim
       - restore_cache:
           <<: *dependency_cache
       - run: export CODECOV_FLAG=admin
@@ -178,12 +178,12 @@ jobs:
           name: Run admin RSpec
           command: cd decidim-admin && rake
       - store_artifacts:
-          path: /app/spec/decidim_dummy_app/tmp/capybara
+          path: /decidim/spec/decidim_dummy_app/tmp/capybara
   system:
     <<: *defaults
     steps:
       - attach_workspace:
-          at: /app
+          at: /decidim
       - restore_cache:
           <<: *dependency_cache
       - run: export CODECOV_FLAG=system
@@ -198,12 +198,12 @@ jobs:
           name: Run system RSpec
           command: cd decidim-system && rake
       - store_artifacts:
-          path: /app/spec/decidim_dummy_app/tmp/capybara
+          path: /decidim/spec/decidim_dummy_app/tmp/capybara
   proposals:
     <<: *defaults
     steps:
       - attach_workspace:
-          at: /app
+          at: /decidim
       - restore_cache:
           <<: *dependency_cache
       - run: export CODECOV_FLAG=proposals
@@ -218,12 +218,12 @@ jobs:
           name: Run proposals RSpec
           command: cd decidim-proposals && rake
       - store_artifacts:
-          path: /app/spec/decidim_dummy_app/tmp/capybara
+          path: /decidim/spec/decidim_dummy_app/tmp/capybara
   comments:
     <<: *defaults
     steps:
       - attach_workspace:
-          at: /app
+          at: /decidim
       - restore_cache:
           <<: *dependency_cache
       - run: export CODECOV_FLAG=comments
@@ -238,12 +238,12 @@ jobs:
           name: Run comments RSpec
           command: cd decidim-comments && rake
       - store_artifacts:
-          path: /app/spec/decidim_dummy_app/tmp/capybara
+          path: /decidim/spec/decidim_dummy_app/tmp/capybara
   meetings:
     <<: *defaults
     steps:
       - attach_workspace:
-          at: /app
+          at: /decidim
       - restore_cache:
           <<: *dependency_cache
       - run: export CODECOV_FLAG=meetings
@@ -258,12 +258,12 @@ jobs:
           name: Run meetings RSpec
           command: cd decidim-meetings && rake
       - store_artifacts:
-          path: /app/spec/decidim_dummy_app/tmp/capybara
+          path: /decidim/spec/decidim_dummy_app/tmp/capybara
   pages:
     <<: *defaults
     steps:
       - attach_workspace:
-          at: /app
+          at: /decidim
       - restore_cache:
           <<: *dependency_cache
       - run: export CODECOV_FLAG=pages
@@ -278,12 +278,12 @@ jobs:
           name: Run pages RSpec
           command: cd decidim-pages && rake
       - store_artifacts:
-          path: /app/spec/decidim_dummy_app/tmp/capybara
+          path: /decidim/spec/decidim_dummy_app/tmp/capybara
   accountability:
     <<: *defaults
     steps:
       - attach_workspace:
-          at: /app
+          at: /decidim
       - restore_cache:
           <<: *dependency_cache
       - run: export CODECOV_FLAG=accountability
@@ -298,12 +298,12 @@ jobs:
           name: Run accountability RSpec
           command: cd decidim-accountability && rake
       - store_artifacts:
-          path: /app/spec/decidim_dummy_app/tmp/capybara
+          path: /decidim/spec/decidim_dummy_app/tmp/capybara
   budgets:
     <<: *defaults
     steps:
       - attach_workspace:
-          at: /app
+          at: /decidim
       - restore_cache:
           <<: *dependency_cache
       - run: export CODECOV_FLAG=budgets
@@ -318,12 +318,12 @@ jobs:
           name: Run budgets RSpec
           command: cd decidim-budgets && rake
       - store_artifacts:
-          path: /app/spec/decidim_dummy_app/tmp/capybara
+          path: /decidim/spec/decidim_dummy_app/tmp/capybara
   surveys:
     <<: *defaults
     steps:
       - attach_workspace:
-          at: /app
+          at: /decidim
       - restore_cache:
           <<: *dependency_cache
       - run: export CODECOV_FLAG=surveys
@@ -338,7 +338,7 @@ jobs:
           name: Run surveys RSpec
           command: cd decidim-surveys && rake
       - store_artifacts:
-          path: /app/spec/decidim_dummy_app/tmp/capybara
+          path: /decidim/spec/decidim_dummy_app/tmp/capybara
 
 workflows:
   version: 2
