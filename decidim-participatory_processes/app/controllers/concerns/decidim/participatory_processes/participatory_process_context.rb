@@ -11,9 +11,11 @@ module Decidim
 
           layout "layouts/decidim/participatory_process"
 
-          helper ParticipatoryProcessHelper
-
           before_action do
+            view_context.instance_eval do
+              extend ParticipatoryProcessHelper
+            end
+
             authorize! :read, current_participatory_process
           end
         end
