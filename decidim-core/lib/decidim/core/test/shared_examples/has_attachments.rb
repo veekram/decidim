@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "spec_helper"
-
 shared_examples_for "has attachments" do
   context "when it has attachments", processing_uploads_for: Decidim::AttachmentUploader do
     let!(:document) { create(:attachment, :with_pdf, attached_to: attached_to) }

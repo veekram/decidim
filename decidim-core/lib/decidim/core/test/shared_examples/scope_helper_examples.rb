@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "spec_helper"
-
 shared_examples "scope helpers" do
   let(:organization) { create(:organization) }
   let(:scopes_enabled) { true }

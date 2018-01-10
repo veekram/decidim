@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "spec_helper"
-
 shared_examples "localised email" do
   let(:user) { build(:user, locale: locale) }
 

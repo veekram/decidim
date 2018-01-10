@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "spec_helper"
-
 shared_examples_for "authorable" do
   describe "validations" do
     context "when the user group is not verified" do

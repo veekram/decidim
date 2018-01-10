@@ -5,7 +5,6 @@ require "decidim/dev"
 ENV["RAILS_ENV"] ||= "test"
 
 root_path = File.expand_path("..", Dir.pwd)
-engine_spec_dir = File.join(Dir.pwd, "spec")
 
 if ENV["SIMPLECOV"]
   require "simplecov/no_defaults"
@@ -26,7 +25,7 @@ require_relative "rspec_support/authorization.rb"
 
 require "#{Decidim::Dev.dummy_app_path}/config/environment"
 
-Dir["#{engine_spec_dir}/shared/**/*.rb"].each { |f| require f }
+Dir["#{Decidim::Dev.engine_spec_dir}/shared/**/*.rb"].each { |f| require f }
 
 require "paper_trail/frameworks/rspec"
 

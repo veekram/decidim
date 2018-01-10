@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "spec_helper"
-
 shared_examples_for "reportable" do
   context "is reportable" do
     let(:user) { create(:user, organization: subject.organization) }

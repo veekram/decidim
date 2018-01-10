@@ -33,6 +33,14 @@ module Decidim
       @dummy_app_path = path
     end
 
+    def self.engine_spec_dir=(path)
+      @engine_spec_dir=path
+    end
+
+    def self.engine_spec_dir
+      @engine_spec_dir || File.join(Dir.pwd, "spec")
+    end
+
     # Public: Get the dummy application path and raises an error if it is not set.
     def self.dummy_app_path
       unless @dummy_app_path

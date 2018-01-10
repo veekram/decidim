@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "spec_helper"
-
 shared_examples_for "publicable" do
   let(:factory_name) { described_class.name.demodulize.underscore.to_sym }
 
