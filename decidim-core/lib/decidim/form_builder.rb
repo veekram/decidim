@@ -251,8 +251,10 @@ module Decidim
     def date_field(attribute, options = {})
       value = object.send(attribute)
       data = { datepicker: "" }
-      data[:startdate] = I18n.localize(value, format: :datepicker) if value.present?
-      iso_value = value.present? ? value.strftime("%Y-%m-%d") : ""
+      if value.present?
+        data[:startdate] = I18n.localize(value, format: :datepicker)
+        iso_value = value.strftime("%Y-%m-%d")
+      end
 
       template = ""
       template += label(attribute, label_for(attribute) + required_for_attribute(attribute))
