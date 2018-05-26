@@ -24,7 +24,7 @@
         if (ev.date !== null) {
           newDate = exports.moment.utc(ev.date).format("YYYY-MM-DDTHH:mm:ss");
         }
-        $(ev.target).siblings("input").val(newDate);
+        $(ev.target).parent("label").siblings("input").val(newDate);
       });
     });
   };

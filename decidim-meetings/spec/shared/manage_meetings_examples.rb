@@ -112,12 +112,12 @@ shared_examples "manage meetings" do
     fill_in :meeting_address, with: address
     fill_in_services
 
-    page.execute_script("$('#datetime_field_meeting_start_time').focus()")
+    page.execute_script("$('label[for=meeting_start_time]').find('input').focus()")
     page.find(".datepicker-dropdown .day", text: "12").click
     page.find(".datepicker-dropdown .hour", text: "10:00").click
     page.find(".datepicker-dropdown .minute", text: "10:50").click
 
-    page.execute_script("$('#datetime_field_meeting_end_time').focus()")
+    page.execute_script("$('label[for=meeting_end_time]').find('input').focus()")
     page.find(".datepicker-dropdown .day", text: "12").click
     page.find(".datepicker-dropdown .hour", text: "12:00").click
     page.find(".datepicker-dropdown .minute", text: "12:50").click

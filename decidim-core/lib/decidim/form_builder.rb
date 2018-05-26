@@ -252,21 +252,19 @@ module Decidim
       value = object.send(attribute)
       data = { datepicker: "" }
       if value.present?
-        data[:startdate] = I18n.localize(value, format: :datepicker)
         iso_value = value.strftime("%Y-%m-%d")
+        formatted_value = I18n.localize(value, format: :datepicker)
+        data[:startdate] = formatted_value
       end
 
-      template = ""
-      template += label(attribute, label_for(attribute) + required_for_attribute(attribute))
-      template += @template.text_field(
-        @object_name,
+      template = text_field(
         attribute,
-        options.merge(name: nil,
+        options.merge(value: formatted_value,
+                      name: nil,
                       id: "date_field_#{@object_name}_#{attribute}",
                       data: data)
       )
       template += @template.hidden_field(@object_name, attribute, value: iso_value)
-      template += error_and_help_text(attribute, options)
       template.html_safe
     end
 
@@ -278,10 +276,7 @@ module Decidim
         iso_value = value.strftime("%Y-%m-%dT%H:%M:%S")
         formatted_value = I18n.localize(value, format: :timepicker)
       end
-      template = ""
-      template += label(attribute, label_for(attribute) + required_for_attribute(attribute))
-      template += @template.text_field(
-        @object_name,
+      template = text_field(
         attribute,
         options.merge(value: formatted_value,
                       name: nil,
@@ -289,7 +284,6 @@ module Decidim
                       data: { datepicker: "", timepicker: "" })
       )
       template += @template.hidden_field(@object_name, attribute, value: iso_value)
-      template += error_and_help_text(attribute, options)
       template.html_safe
     end
 
