@@ -1,7 +1,40 @@
 # frozen_string_literal: true
 
 require "rails-controller-testing"
+
+#
+# Make sure Rails hooks are available
+#
+require "action_dispatch/system_testing/test_helpers/setup_and_teardown"
+
+#
+# Monkeypatch after_teardown to just call "super". That super there is what
+# rolls back transaction fixtures after each test.
+#
+::ActionDispatch::SystemTesting::TestHelpers::SetupAndTeardown.module_eval do
+  def after_teardown
+    super
+  end
+end
+
+#
+# Save the previously monkeypatched method to call it when we need.
+#
+unbounded_after_teardown = ::ActionDispatch::SystemTesting::TestHelpers::SetupAndTeardown.instance_method(:after_teardown)
+
+#
+# Fully disable the method now, make it do nothing
+#
+::ActionDispatch::SystemTesting::TestHelpers::SetupAndTeardown.module_eval do
+  def after_teardown; end
+end
+
+#
+# Finally, require rspec-rails, knowing that it will do no teardown stuff
+# without our control.
+#
 require "rspec/rails"
+
 require "rspec/cells"
 require "byebug"
 require "rectify/rspec"
@@ -35,4 +68,20 @@ RSpec.configure do |config|
   config.include ActionView::Helpers::SanitizeHelper
   config.include ERB::Util
   config.include Capybara::ReactSelect, type: :system
+
+  #
+  # Do the following after each test:
+  #
+  # * First, take a screenshot if necessary.
+  # * Second, reset sessions.
+  # * Third, rollback transactional fixtures.
+  #
+  config.after :each, type: :system do |example|
+    begin
+      Capybara::Screenshot::RSpec.after_failed_example(example)
+      Capybara.reset_sessions!
+    ensure
+      unbounded_after_teardown.bind(self).call
+    end
+  end
 end

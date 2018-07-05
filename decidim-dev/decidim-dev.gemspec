@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib,vendor}/**/*", "Rakefile", "README.md"]
 
   s.add_dependency "capybara", "~> 3.0"
+  s.add_dependency "capybara-screenshot", "~> 1.0"
   s.add_dependency "decidim", Decidim::Dev.version
   s.add_dependency "factory_bot_rails", "~> 4.8"
 
@@ -40,7 +41,6 @@ Gem::Specification.new do |s|
   s.add_dependency "rubocop-rspec", "~> 1.21"
   s.add_dependency "selenium-webdriver", "~> 3.7"
   s.add_dependency "simplecov", "~> 0.13"
-  s.add_dependency "system_test_html_screenshots", "~> 0.1.1"
   s.add_dependency "webmock", "~> 3.0"
   s.add_dependency "wisper-rspec", "~> 1.0"
 end
