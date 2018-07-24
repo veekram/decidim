@@ -60,7 +60,6 @@ module Decidim
 
     # When creating a terms-and-conditions page
     # set the organization tos_version
-
     def update_organization_tos_version
       return unless slug == "terms-and-conditions"
       organization.update!(tos_version: created_at)
