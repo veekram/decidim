@@ -69,11 +69,16 @@ FactoryBot.define do
     official_url { Faker::Internet.url }
     highlighted_content_banner_enabled false
     enable_omnipresent_banner false
-    tos_version { Time.current }
 
-    after(:create) do |organization|
-      tos_page = Decidim::StaticPage.find_by(slug: "terms-and-conditions", organization: organization)
-      create(:static_page, :tos, organization: organization) if tos_page.nil?
+    transient do
+      tos_version { Time.current }
+    end
+
+    trait :with_tos do
+      after(:create) do |organization|
+        tos_page = Decidim::StaticPage.find_by(slug: "terms-and-conditions", organization: organization)
+        create(:static_page, :tos, organization: organization) if tos_page.nil?
+      end
     end
   end
 
@@ -91,8 +96,6 @@ FactoryBot.define do
     about { Faker::Lorem.paragraph(2) }
 
     after(:create) do |user|
-      tos_page = Decidim::StaticPage.find_by(slug: "terms-and-conditions", organization: user.organization)
-      create(:static_page, :tos, organization: user.organization) if tos_page.nil?
       user.accepted_tos_version = user.organization.tos_version
       user.save
     end
@@ -200,7 +203,7 @@ FactoryBot.define do
     organization
 
     trait :default do
-      slug { Decidim::StaticPage::DEFAULT_PAGES.sample }
+      slug { (Decidim::StaticPage::DEFAULT_PAGES - ["terms-and-conditions"]).sample }
     end
 
     trait :tos do
