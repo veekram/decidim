@@ -63,6 +63,12 @@ module Decidim
             expect(organization.static_pages.count).to eq(Decidim::StaticPage::DEFAULT_PAGES.length)
           end
 
+          it "creates the default content blocks" do
+            command.call
+            organization = Organization.last
+            expect(Decidim::ContentBlock.where(organization: organization)).to be_any
+          end
+
           it "sets the organizations TOS version" do
             command.call
             organization = Organization.last
