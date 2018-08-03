@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Decidim
-  # A form object to be used when users want to amend a amendable resource.
+  # A form object to be used when users want to amend an amendable resource.
   class CreateAmendForm < Decidim::Form
     mimic :amend
 

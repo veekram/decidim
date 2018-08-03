@@ -144,8 +144,9 @@ en:
             You can %{publish_as_button}.
       new:
         back: Back
+        heading: Create your amendment
         help_text: You are modifying the %{model_name}
-        send: Send
+        send: Send emendation
     anonymous_user: Anonymous
     application:
       collection:

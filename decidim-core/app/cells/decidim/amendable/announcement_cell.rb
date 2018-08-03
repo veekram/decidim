@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Decidim::Amendable
-  # This cell renders the button to amend the given resource.
+  # This cell renders the callout with information about the state of the emendation
   class AnnouncementCell < Decidim::ViewModel
 
     def show
