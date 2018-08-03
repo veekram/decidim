@@ -9,7 +9,7 @@ describe "Search proposals", type: :system do
   let!(:term) { searchables.first.title.split(" ").sample }
 
   before do
-    searchables.each { |s| s.update(published_at: DateTime.current) }
+    searchables.each { |s| s.update(published_at: Time.zone.now) }
   end
 
   include_examples "searchable results"

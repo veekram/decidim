@@ -14,7 +14,7 @@ module Decidim
             component: component,
             title: "The resource title",
             address: "The resource address.",
-            published_at: DateTime.current
+            published_at: Time.zone.now
           )
         end
         let(:component) { create(:component, manifest_name: "dummy") }
